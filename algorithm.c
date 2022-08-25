@@ -46,9 +46,10 @@ void array_swap(game_t *game, size_t index_a, size_t index_b)
 void bubble_sort(game_t *game)
 {
     bool sorted = false;
+    int j = 1;
     while (!sorted) {
         sorted = true;
-        for (size_t i = 0; i < ARRAY_SIZE-1; ++i) {
+        for (size_t i = 0; i < ARRAY_SIZE-j; ++i) {
             if(check_return_pause(game))
                 return;
 
@@ -60,6 +61,7 @@ void bubble_sort(game_t *game)
 
             nanosleep(&game->settings.ts, NULL);
         }
+        j++;
     }
 }
 
@@ -116,6 +118,10 @@ void insertion_sort(game_t *game)
             }
         }
     }
+}
+
+void merge_sort(game_t *game)
+{
 }
 
 void *sort(void *arg)
