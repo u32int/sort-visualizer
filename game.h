@@ -72,3 +72,5 @@ void cycle_algo_left(game_t *game);
 void cycle_algo_right(game_t *game);
 void elem_size_increase(game_t *game);
 void elem_size_decrease(game_t *game);
+void delay_decrease(game_t *game);
+void delay_increase(game_t *game);

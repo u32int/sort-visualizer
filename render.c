@@ -73,13 +73,23 @@ void render_game(SDL_Renderer *renderer, game_t *game, TTF_Font *font)
                 font, col_normal,
                 algo_pretty_names[game->settings.algorithm]);
 
-    char num_elems[32];
-    snprintf(num_elems, 32, "Elem: %lu (%lu)", ARRAY_SIZE, game->settings.rect_width);
+    text_flags.center = false;
+    char opt_textbuff[32];
+    snprintf(opt_textbuff, 32, "elem: %lu (%lu)", ARRAY_SIZE, game->settings.rect_width);
     /* elem num */
     render_text(renderer,
-                -SCREEN_WIDTH/3, -SCREEN_HEIGHT/2+FONT_SIZE,
+                SCREEN_WIDTH/12, FONT_SIZE/2,
                 font, col_normal,
-                num_elems);
+                opt_textbuff);
+
+    /* delay */
+    snprintf(opt_textbuff, 32, "delay: %.3lfms",
+             ((double)game->settings.ts.tv_nsec) / 1000000L);
+    render_text(renderer,
+                SCREEN_WIDTH/12, FONT_SIZE*2+2,
+                font, col_normal,
+                opt_textbuff);
+    text_flags.center = true;
 
     /* stats */
     char stats[3][32];
@@ -169,5 +179,77 @@ void render_algoright(SDL_Renderer *renderer, game_t *game,
                         x1, y1,
                         x1, y2,
                         col_normal.r, col_normal.g, col_normal.b, col_normal.a);
+    }
+}
+
+void render_elemnum_down(SDL_Renderer *renderer, game_t *game,
+                         int x1, int y1, int x2, int y2)
+{
+    if (game->settings.rect_width == 12) {
+        filledTrigonRGBA(renderer,
+                         x1, y1,
+                         x2, y1,
+                         (x1+x2)/2, y2,
+                         col_dim.r, col_dim.g, col_dim.b, col_dim.a);
+    } else {
+        filledTrigonRGBA(renderer,
+                         x1, y1,
+                         x2, y1,
+                         (x1+x2)/2, y2,
+                         col_normal.r, col_normal.g, col_normal.b, col_normal.a);
+    }
+}
+
+void render_elemnum_up(SDL_Renderer *renderer, game_t *game,
+                       int x1, int y1, int x2, int y2)
+{
+    if (game->settings.rect_width == 1) {
+        filledTrigonRGBA(renderer,
+                         x1, y2,
+                         x2, y2,
+                         (x1+x2)/2, y1,
+                         col_dim.r, col_dim.g, col_dim.b, col_dim.a);
+    } else {
+        filledTrigonRGBA(renderer,
+                         x1, y2,
+                         x2, y2,
+                         (x1+x2)/2, y1,
+                         col_normal.r, col_normal.g, col_normal.b, col_normal.a);
+    }
+}
+
+void render_delay_down(SDL_Renderer *renderer, game_t *game,
+                         int x1, int y1, int x2, int y2)
+{
+    if (game->settings.ts.tv_nsec == 1000L) {
+        filledTrigonRGBA(renderer,
+                         x1, y1,
+                         x2, y1,
+                         (x1+x2)/2, y2,
+                         col_dim.r, col_dim.g, col_dim.b, col_dim.a);
+    } else {
+        filledTrigonRGBA(renderer,
+                         x1, y1,
+                         x2, y1,
+                         (x1+x2)/2, y2,
+                         col_normal.r, col_normal.g, col_normal.b, col_normal.a);
+    }
+}
+
+void render_delay_up(SDL_Renderer *renderer, game_t *game,
+                       int x1, int y1, int x2, int y2)
+{
+    if (game->settings.ts.tv_nsec == 100000000L) {
+        filledTrigonRGBA(renderer,
+                         x1, y2,
+                         x2, y2,
+                         (x1+x2)/2, y1,
+                         col_dim.r, col_dim.g, col_dim.b, col_dim.a);
+    } else {
+        filledTrigonRGBA(renderer,
+                         x1, y2,
+                         x2, y2,
+                         (x1+x2)/2, y1,
+                         col_normal.r, col_normal.g, col_normal.b, col_normal.a);
     }
 }

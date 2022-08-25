@@ -16,3 +16,15 @@ void render_algoleft(SDL_Renderer *renderer, game_t *game,
 
 void render_algoright(SDL_Renderer *renderer, game_t *game,
                       int x1, int y1, int x2, int y2);
+
+void render_elemnum_down(SDL_Renderer *renderer, game_t *game,
+                         int x1, int y1, int x2, int y2);
+
+void render_elemnum_up(SDL_Renderer *renderer, game_t *game,
+                       int x1, int y1, int x2, int y2);
+
+void render_delay_down(SDL_Renderer *renderer, game_t *game,
+                       int x1, int y1, int x2, int y2);
+
+void render_delay_up(SDL_Renderer *renderer, game_t *game,
+                     int x1, int y1, int x2, int y2);

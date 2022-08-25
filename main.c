@@ -39,6 +39,28 @@ int main()
              .callback = cycle_algo_right,
              .draw_func = render_algoright,
             },
+            /* Element number */
+            {.x1 = SCREEN_WIDTH/12-25, .y1 = FONT_SIZE/2+20+2,
+             .x2 = SCREEN_WIDTH/12-5, .y2 = FONT_SIZE/2+40+2,
+             .callback = elem_size_decrease,
+             .draw_func = render_elemnum_down,
+            },
+            {.x1 = SCREEN_WIDTH/12-25, .y1 = FONT_SIZE/2-2,
+             .x2 = SCREEN_WIDTH/12-5, .y2 = FONT_SIZE/2+20-2,
+             .callback = elem_size_increase,
+             .draw_func = render_elemnum_up,
+            },
+            /* Element number */
+            {.x1 = SCREEN_WIDTH/12-25, .y1 = FONT_SIZE*2+20+2,
+             .x2 = SCREEN_WIDTH/12-5, .y2 = FONT_SIZE*2+40+2,
+             .callback = delay_decrease,
+             .draw_func = render_delay_down,
+            },
+            {.x1 = SCREEN_WIDTH/12-25, .y1 = FONT_SIZE*2-2,
+             .x2 = SCREEN_WIDTH/12-5, .y2 = FONT_SIZE*2+20-2,
+             .callback = delay_increase,
+             .draw_func = render_delay_up,
+            },
             {.callback = NULL}, /* END */
         }
     };

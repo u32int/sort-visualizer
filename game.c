@@ -24,7 +24,7 @@ void restart_game(game_t *game)
     game->state = Reset;
 
     while (game->state != Pause) /* wait for sorting function to exit */
-        sleep_ms(10);
+        sleep_ms(1);
 
     game->stats.writes = 0;
     game->stats.accesses = 0;
@@ -58,7 +58,7 @@ void cycle_algo_left(game_t *game)
 void elem_size_increase(game_t *game)
 {
     game->settings.rect_width = clamp_int(game->settings.rect_width-1,
-                                        1, 12);
+                                          1, 12);
     if (game->state == Pause) {
         if (game->hl_elem != -1)
             restart_game(game);
@@ -70,13 +70,26 @@ void elem_size_increase(game_t *game)
 void elem_size_decrease(game_t *game)
 {
     game->settings.rect_width = clamp_int(game->settings.rect_width+1,
-                                            1, 12);
+                                          1, 12);
     if (game->state == Pause) {
         if (game->hl_elem != -1)
             restart_game(game);
     } else {
         restart_game(game);
     }
+}
+
+void delay_increase(game_t *game)
+{
+    game->settings.ts.tv_nsec = clamp_int(game->settings.ts.tv_nsec*10,
+                                          1000L, 100000000L);
+}
+
+
+void delay_decrease(game_t *game)
+{
+    game->settings.ts.tv_nsec = clamp_int(game->settings.ts.tv_nsec/10,
+                                          1000L, 100000000L);
 }
 
 void init_game(game_t *game)
@@ -87,7 +100,7 @@ void init_game(game_t *game)
     game->settings.rect_width = 1;
     game->settings.algorithm  = Bubble;
     game->settings.ts.tv_sec = 0;
-    game->settings.ts.tv_nsec = 0;
+    game->settings.ts.tv_nsec = 100000L;
 
     game->stats.writes = 0;
     game->stats.accesses = 0;
@@ -119,6 +132,12 @@ void handle_key(game_t *game, SDL_Keycode key)
         break;
     case SDLK_DOWN:
         elem_size_decrease(game);
+        break;
+    case SDLK_COMMA:
+        delay_decrease(game);
+        break;
+    case SDLK_PERIOD:
+        delay_increase(game);
         break;
     default: {};
     }
