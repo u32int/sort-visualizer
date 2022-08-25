@@ -3,6 +3,7 @@
 #include <SDL2/SDL_keycode.h>
 #include <SDL2/SDL_render.h>
 #include <stdbool.h>
+#include <time.h>
 
 #define SCREEN_WIDTH  1200
 #define SCREEN_HEIGHT 800
@@ -29,8 +30,6 @@ typedef enum {
     Algorithm_END
 } Algorithm;
 
-static const char* algo_pretty_names[] = {"Bubble", "Quick", "Insertion"};
-
 typedef struct {
     int x1, y1;
     int x2, y2;
@@ -43,7 +42,7 @@ typedef struct {
 typedef struct {
     Algorithm algorithm;
     size_t rect_width;
-    size_t delay_us; /* microseconds */
+    struct timespec ts;
 } game_settings_t;
 
 typedef struct {

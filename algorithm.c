@@ -1,19 +1,22 @@
-#include "algorithm.h"
-#include "game.h"
-#include "util.h"
+#define _POSIX_C_SOURCE 200809L
 
 #include <pthread.h>
+#include <time.h>
 #include <unistd.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <math.h>
+
+#include "algorithm.h"
+#include "game.h"
+#include "util.h"
 
 #define ARRAY_SIZE (SCREEN_WIDTH / game->settings.rect_width)
 
 int check_return_pause(game_t *game)
 {
     while(game->state == Pause)
-        usleep(100);
+        sleep_ms(10);
 
     if (game->state == Reset)
         return 1;
@@ -45,7 +48,7 @@ void bubble_sort(game_t *game)
     bool sorted = false;
     while (!sorted) {
         sorted = true;
-        for (int i = 0; i < ARRAY_SIZE-1; ++i) {
+        for (size_t i = 0; i < ARRAY_SIZE-1; ++i) {
             if(check_return_pause(game))
                 return;
 
@@ -55,7 +58,7 @@ void bubble_sort(game_t *game)
             }
             game->hl_elem = i+2;
 
-            usleep(game->settings.delay_us);
+            nanosleep(&game->settings.ts, NULL);
         }
     }
 }
@@ -76,13 +79,13 @@ void quick_sort(game_t *game, int start, int end)
         do {
             left++;
             game->hl_elem = left;
-            usleep(game->settings.delay_us);
+            nanosleep(&game->settings.ts, NULL);
         } while (array_get(game, left) < array_get(game, pivot));
 
         do {
             right--; 
             game->hl_elem = right;
-            usleep(game->settings.delay_us);
+            nanosleep(&game->settings.ts, NULL);
         } while (array_get(game, right) > array_get(game, pivot));
 
         if (left >= right)
@@ -104,10 +107,10 @@ void insertion_sort(game_t *game)
         game->hl_elem = i;
         if (array_get(game, i) > array_get(game, i+1)) {
             int tmp = array_get(game, i+1);
-            size_t j = i;
+            int j = i;
             while (array_get(game, j) > tmp && j >= 0) {
                 game->hl_elem = j;
-                usleep(game->settings.delay_us);
+                nanosleep(&game->settings.ts, NULL);
                 array_swap(game, j, j+1);
                 j--;
             }
@@ -123,7 +126,7 @@ void *sort(void *arg)
 
     while (game->state != Quit) {
         while (game->state == Pause)
-            usleep(1000);
+            nanosleep((const struct timespec[]){{0, 500000000L}}, NULL);
 
         if (randomize)
             randomize_array(game);

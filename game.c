@@ -24,7 +24,7 @@ void restart_game(game_t *game)
     game->state = Reset;
 
     while (game->state != Pause) /* wait for sorting function to exit */
-        usleep(100);
+        sleep_ms(10);
 
     game->stats.writes = 0;
     game->stats.accesses = 0;
@@ -86,7 +86,8 @@ void init_game(game_t *game)
 
     game->settings.rect_width = 1;
     game->settings.algorithm  = Bubble;
-    game->settings.delay_us = 1000;
+    game->settings.ts.tv_sec = 0;
+    game->settings.ts.tv_nsec = 0;
 
     game->stats.writes = 0;
     game->stats.accesses = 0;

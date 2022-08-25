@@ -12,6 +12,8 @@ static const SDL_Color col_normal = { .r = 255, .b = 255, .g = 255, .a = 255};
 static const SDL_Color col_dim = { .r = 90, .b = 90, .g = 90, .a = 255};
 static const SDL_Color col_highlight = { .r = 230, .b = 15, .g = 15, .a = 255};
 
+static const char* algo_pretty_names[] = {"Bubble", "Quick", "Insertion"};
+
 #define ARRAY_SIZE (SCREEN_WIDTH/game->settings.rect_width)
 
 struct TextFlags {
@@ -52,7 +54,7 @@ void render_text(SDL_Renderer *renderer, int x, int y,
 void render_game(SDL_Renderer *renderer, game_t *game, TTF_Font *font)
 {
     /* render array contents */
-    for (size_t i = 0; i < SCREEN_WIDTH/game->settings.rect_width; ++i) {
+    for (int i = 0; i < SCREEN_WIDTH/game->settings.rect_width; ++i) {
         if (i == game->hl_elem)
             
             boxRGBA(renderer,
@@ -118,6 +120,8 @@ void render_pauseplay_button(SDL_Renderer *renderer, game_t *game,
 void render_restart_button(SDL_Renderer *renderer, game_t *game,
                              int x1, int y1, int x2, int y2)
 {
+    (void) game;
+
     arcRGBA(renderer,
             (x1+x2)/2, (y1+y2)/2,
             (y2-y1)/3+(y2-y1)/10, -90, 150,
