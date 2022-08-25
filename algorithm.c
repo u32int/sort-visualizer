@@ -126,7 +126,7 @@ void *sort(void *arg)
 
     while (game->state != Quit) {
         while (game->state == Pause)
-            nanosleep((const struct timespec[]){{0, 500000000L}}, NULL);
+            sleep_ms(1);
 
         if (randomize)
             randomize_array(game);
