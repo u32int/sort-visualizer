@@ -100,7 +100,7 @@ void init_game(game_t *game)
     game->settings.rect_width = 1;
     game->settings.algorithm  = Bubble;
     game->settings.ts.tv_sec = 0;
-    game->settings.ts.tv_nsec = 100000L;
+    game->settings.ts.tv_nsec = 1000000L;
 
     game->stats.writes = 0;
     game->stats.accesses = 0;
