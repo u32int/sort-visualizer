@@ -26,3 +26,7 @@ Run:
 ```bash
 ./sdlsort
 ```
+#### License
+
+This program is free software released under the MIT license.
+For the full text of the license, see the 'LICENSE' file.
