@@ -72,7 +72,7 @@ int main()
         return EXIT_FAILURE;
     }
 
-    SDL_Window *window = SDL_CreateWindow("VisualSort",
+    SDL_Window *window = SDL_CreateWindow("sort-visualizer",
                                           SDL_WINDOWPOS_UNDEFINED,
                                           SDL_WINDOWPOS_UNDEFINED,
                                           SCREEN_WIDTH, SCREEN_HEIGHT,

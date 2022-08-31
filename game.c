@@ -137,10 +137,10 @@ void handle_key(game_t *game, SDL_Keycode key)
         elem_size_decrease(game);
         break;
     case SDLK_COMMA:
-        delay_decrease(game);
+        delay_increase(game);
         break;
     case SDLK_PERIOD:
-        delay_increase(game);
+        delay_decrease(game);
         break;
     default: {};
     }
