@@ -7,6 +7,7 @@ Currently included algorithms:
 - Bubble Sort
 - Quick Sort (LR ptr)
 - Insertion Sort
+- Merge sort (top-down)
 
 #### Keybindings
 
