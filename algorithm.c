@@ -124,7 +124,7 @@ void insertion_sort(game_t *game)
 
 void merge_sort(int array[], int aux_array[], size_t begin, size_t end, game_t *game)
 {
-    if (end - begin <= 1 || check_return_pause(game))
+    if (end - begin <= 1)
         return;
 
     size_t mid = (begin + end) / 2;
@@ -136,8 +136,11 @@ void merge_sort(int array[], int aux_array[], size_t begin, size_t end, game_t *
     size_t right = mid;
 
     for (size_t i = begin; i < end; ++i) {
+        if (check_return_pause(game))
+            return;
         game->hl_elem = i;
         nanosleep(&game->settings.ts, NULL);
+        
         if (left < mid && (right >= end || aux_array[left] < aux_array[right])) {
             game->array[i] = aux_array[left];  // Visualization purpose only
             array[i] = aux_array[left];
