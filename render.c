@@ -12,7 +12,7 @@ static const SDL_Color col_normal = { .r = 255, .b = 255, .g = 255, .a = 255};
 static const SDL_Color col_dim = { .r = 90, .b = 90, .g = 90, .a = 255};
 static const SDL_Color col_highlight = { .r = 230, .b = 15, .g = 15, .a = 255};
 
-static const char* algo_pretty_names[] = {"Bubble", "Quick", "Insertion"};
+static const char* algo_pretty_names[] = {"Bubble", "Quick", "Insertion", "Merge"};
 
 #define ARRAY_SIZE (SCREEN_WIDTH/game->settings.rect_width)
 

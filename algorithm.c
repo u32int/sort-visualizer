@@ -1,3 +1,4 @@
+#include <string.h>
 #define _POSIX_C_SOURCE 200809L
 
 #include <pthread.h>
@@ -120,8 +121,33 @@ void insertion_sort(game_t *game)
     }
 }
 
-void merge_sort(game_t *game)
+
+void merge_sort(int array[], int aux_array[], size_t begin, size_t end, game_t *game)
 {
+    if (end - begin <= 1 || check_return_pause(game))
+        return;
+
+    size_t mid = (begin + end) / 2;
+
+    merge_sort(aux_array, array, begin, mid, game);
+    merge_sort(aux_array, array, mid,   end, game);
+
+    size_t left = begin;
+    size_t right = mid;
+
+    for (size_t i = begin; i < end; ++i) {
+        game->hl_elem = i;
+        nanosleep(&game->settings.ts, NULL);
+        if (left < mid && (right >= end || aux_array[left] < aux_array[right])) {
+            game->array[i] = aux_array[left];  // Visualization purpose only
+            array[i] = aux_array[left];
+            left++;
+        } else {
+            game->array[i] = aux_array[right]; // Visualization purpose only
+            array[i] = aux_array[right];
+            right++;
+        }
+    }
 }
 
 void *sort(void *arg)
@@ -149,6 +175,11 @@ void *sort(void *arg)
             break;
         case Insertion:
             insertion_sort(game);
+            break;
+        case Merge:
+            memcpy(game->aux_array, game->array, ARRAY_SIZE*sizeof(int));
+            memcpy(game->aux_array_b, game->array, ARRAY_SIZE*sizeof(int));
+            merge_sort(game->aux_array, game->aux_array_b, 0, ARRAY_SIZE, game);
             break;
         }
 

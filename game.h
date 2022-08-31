@@ -26,6 +26,7 @@ typedef enum {
     Bubble,
     Quick,
     Insertion,
+    Merge,
 
     Algorithm_END
 } Algorithm;
@@ -58,6 +59,8 @@ typedef struct game_t {
     button_t buttons[16];
 
     int *array;
+    int *aux_array;
+    int *aux_array_b;
     int hl_elem;
 } game_t;
 

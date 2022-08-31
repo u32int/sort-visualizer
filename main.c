@@ -152,6 +152,8 @@ int main()
     }
 
     free(game.array);
+    free(game.aux_array);
+    free(game.aux_array_b);
 
     TTF_CloseFont(font);
 
