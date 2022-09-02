@@ -44,6 +44,20 @@ void array_swap(game_t *game, size_t index_a, size_t index_b)
     game->stats.swaps++;
 }
 
+/* for accessing auxilary arrays with stats */
+void array_set_ptr(int array[], size_t index, int value, game_t *game)
+{
+    array[index] = value;
+    game->stats.writes++;
+}
+
+int array_get_ptr(int array[], size_t index, game_t *game)
+{
+    game->stats.accesses++;
+    return array[index];
+}
+
+
 void bubble_sort(game_t *game)
 {
     bool sorted = false;
@@ -143,11 +157,11 @@ void merge_sort(int array[], int aux_array[], size_t begin, size_t end, game_t *
         
         if (left < mid && (right >= end || aux_array[left] < aux_array[right])) {
             game->array[i] = aux_array[left];  // Visualization purpose only
-            array[i] = aux_array[left];
+            array_set_ptr(array, i, array_get_ptr(aux_array, left, game), game);
             left++;
         } else {
             game->array[i] = aux_array[right]; // Visualization purpose only
-            array[i] = aux_array[right];
+            array_set_ptr(array, i, array_get_ptr(aux_array, right, game), game);
             right++;
         }
     }

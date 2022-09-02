@@ -106,7 +106,6 @@ void init_game(game_t *game)
     game->stats.accesses = 0;
     game->stats.swaps = 0;
 
-    /* Maybe instead of calling malloc 3 times this could be one call and 3 ptrs? */
     game->array = (int*)malloc(SCREEN_WIDTH*sizeof(int));
     game->aux_array = (int*)malloc(SCREEN_WIDTH*sizeof(int));
     game->aux_array_b = (int*)malloc(SCREEN_WIDTH*sizeof(int));
