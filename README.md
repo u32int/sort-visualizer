@@ -2,6 +2,8 @@
 
 Various sorting algorithms visualized.
 
+<img title="" src="img/preview.png" alt="">
+
 Currently included algorithms:
 
 - Bubble Sort
